@@ -29,13 +29,20 @@ function transformText() {
   // Agregar espacios entre letras
   if (addSpacesCheck.checked) {
     const spaces = " ".repeat(parseInt(spacingAmount.value));
-    // Solo agregar espacios entre caracteres no-espacio
+    const wordSeparator = " ".repeat(parseInt(spacingAmount.value) * 3); // Espacios entre palabras son 3x más grandes
+    
     text = text
       .split("")
       .map((char, index, array) => {
         if (index === array.length - 1) return char;
-        // No agregar espacios extras si el carácter actual o el siguiente es un espacio
-        if (char === " " || array[index + 1] === " ") return char;
+        
+        // Si el carácter actual es un espacio, reemplazarlo por un separador más grande
+        if (char === " ") return wordSeparator;
+        
+        // Si el siguiente carácter es un espacio, no agregar espacios extras al carácter actual
+        if (array[index + 1] === " ") return char;
+        
+        // Agregar espacios entre caracteres no-espacio
         return char + spaces;
       })
       .join("");
