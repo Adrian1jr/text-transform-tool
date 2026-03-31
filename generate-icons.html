@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generador de Iconos</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #667eea;
+        margin-bottom: 20px;
+      }
+      .instructions {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+      .preview {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin: 30px 0;
+        flex-wrap: wrap;
+      }
+      .icon-preview {
+        text-align: center;
+      }
+      .icon-preview canvas {
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        display: block;
+        margin: 0 auto 10px;
+      }
+      button {
+        background: #667eea;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 5px;
+        transition: background 0.3s;
+      }
+      button:hover {
+        background: #5568d3;
+      }
+      .success {
+        color: #48bb78;
+        font-weight: 600;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🎨 Generador de Iconos para la Extensión</h1>
+
+      <div class="instructions">
+        <h3>📝 Instrucciones:</h3>
+        <ol>
+          <li>Haz clic en "Generar Iconos"</li>
+          <li>Se mostrarán 3 iconos de diferentes tamaños</li>
+          <li>Haz clic derecho en cada icono → "Guardar imagen como..."</li>
+          <li>
+            Guárdalos en la carpeta de la extensión con estos nombres:
+            <ul>
+              <li><code>icon16.png</code></li>
+              <li><code>icon48.png</code></li>
+              <li><code>icon128.png</code></li>
+            </ul>
+          </li>
+          <li>¡Listo! Ya puedes cargar la extensión en Chrome</li>
+        </ol>
+      </div>
+
+      <div style="text-align: center">
+        <button onclick="generateIcons()">🎨 Generar Iconos</button>
+        <button onclick="downloadAllIcons()">💾 Descargar Todos</button>
+      </div>
+
+      <div class="preview" id="preview"></div>
+    </div>
+
+    <script>
+      function createIcon(size) {
+        const canvas = document.createElement("canvas");
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext("2d");
+
+        // Fondo con gradiente
+        const gradient = ctx.createLinearGradient(0, 0, size, size);
+        gradient.addColorStop(0, "#667eea");
+        gradient.addColorStop(1, "#5568d3");
+        ctx.fillStyle = gradient;
+
+        // Rectangulo redondeado
+        const radius = size / 6;
+        ctx.beginPath();
+        ctx.moveTo(radius, 0);
+        ctx.lineTo(size - radius, 0);
+        ctx.quadraticCurveTo(size, 0, size, radius);
+        ctx.lineTo(size, size - radius);
+        ctx.quadraticCurveTo(size, size, size - radius, size);
+        ctx.lineTo(radius, size);
+        ctx.quadraticCurveTo(0, size, 0, size - radius);
+        ctx.lineTo(0, radius);
+        ctx.quadraticCurveTo(0, 0, radius, 0);
+        ctx.fill();
+
+        // Texto
+        ctx.fillStyle = "white";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        if (size >= 48) {
+          // Iconos grandes: mostrar "P I"
+          ctx.font = `bold ${size / 4}px Arial, sans-serif`;
+          ctx.fillText("P I", size / 2, size / 2.5);
+
+          ctx.font = `bold ${size / 6}px Arial, sans-serif`;
+          ctx.fillText("L O T A S", size / 2, size / 1.5);
+        } else {
+          // Icono pequeño: solo "PI"
+          ctx.font = `bold ${size / 3}px Arial, sans-serif`;
+          ctx.fillText("PI", size / 2, size / 2);
+        }
+
+        return canvas;
+      }
+
+      function generateIcons() {
+        const preview = document.getElementById("preview");
+        preview.innerHTML = "";
+
+        const sizes = [
+          { size: 16, name: "icon16.png" },
+          { size: 48, name: "icon48.png" },
+          { size: 128, name: "icon128.png" },
+        ];
+
+        sizes.forEach(({ size, name }) => {
+          const canvas = createIcon(size);
+
+          const container = document.createElement("div");
+          container.className = "icon-preview";
+
+          const displayCanvas = document.createElement("canvas");
+          displayCanvas.width = size > 48 ? 128 : size * 2;
+          displayCanvas.height = size > 48 ? 128 : size * 2;
+          const displayCtx = displayCanvas.getContext("2d");
+          displayCtx.imageSmoothingEnabled = false;
+          displayCtx.drawImage(canvas, 0, 0, displayCanvas.width, displayCanvas.height);
+
+          const label = document.createElement("div");
+          label.textContent = `${name} (${size}x${size})`;
+          label.style.fontWeight = "600";
+          label.style.marginBottom = "10px";
+
+          const downloadBtn = document.createElement("button");
+          downloadBtn.textContent = "💾 Descargar";
+          downloadBtn.onclick = () => downloadIcon(canvas, name);
+
+          container.appendChild(label);
+          container.appendChild(displayCanvas);
+          container.appendChild(downloadBtn);
+          preview.appendChild(container);
+        });
+      }
+
+      function downloadIcon(canvas, filename) {
+        canvas.toBlob((blob) => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = filename;
+          a.click();
+          URL.revokeObjectURL(url);
+        });
+      }
+
+      function downloadAllIcons() {
+        const sizes = [
+          { size: 16, name: "icon16.png" },
+          { size: 48, name: "icon48.png" },
+          { size: 128, name: "icon128.png" },
+        ];
+
+        sizes.forEach(({ size, name }, index) => {
+          setTimeout(() => {
+            const canvas = createIcon(size);
+            downloadIcon(canvas, name);
+          }, index * 500); // Delay para evitar bloqueo del navegador
+        });
+      }
+
+      // Generar automáticamente al cargar la página
+      window.onload = generateIcons;
+    </script>
+  </body>
+</html>

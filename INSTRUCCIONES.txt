@@ -1,0 +1,109 @@
+╔══════════════════════════════════════════════════════════════╗
+║  INSTRUCCIONES PARA INSTALAR LA EXTENSIÓN                    ║
+╚══════════════════════════════════════════════════════════════╝
+
+📌 PASO 1: GENERAR LOS ICONOS (IMPORTANTE)
+───────────────────────────────────────────
+
+1. Abre el archivo: generate-icons.html (doble clic)
+2. Se abrirá en tu navegador
+3. Haz clic en "💾 Descargar Todos"
+4. Descarga los 3 archivos:
+   - icon16.png
+   - icon48.png
+   - icon128.png
+
+5. MUEVE estos 3 archivos a la carpeta:
+   C:\Users\Design\Desktop\proyectos\text-transform-tool\
+
+(Deben estar en la misma carpeta donde está manifest.json)
+
+
+📌 PASO 2: INSTALAR LA EXTENSIÓN EN CHROME
+───────────────────────────────────────────
+
+1. Abre Google Chrome
+
+2. Ve a: chrome://extensions/
+   (Copia y pega esto en la barra de direcciones)
+
+3. Activa el "Modo de desarrollador"
+   (Interruptor en la esquina superior derecha)
+
+4. Haz clic en "Cargar extensión sin empaquetar"
+
+5. Selecciona la carpeta:
+   C:\Users\Design\Desktop\proyectos\text-transform-tool
+
+6. ¡Listo! La extensión se instalará
+
+
+📌 PASO 3: USAR LA EXTENSIÓN
+───────────────────────────────────────────
+
+1. Haz clic en el icono de la extensión en la barra de Chrome
+
+2. Presiona el botón "Activar Extensión"
+   - Verás un badge "ON" en el icono
+   - Aparecerá un indicador verde por 3 segundos
+
+3. Ve a cualquier sitio web:
+   ✅ WhatsApp Web (web.whatsapp.com)
+   ✅ Facebook (facebook.com)
+   ✅ Instagram (instagram.com)
+   ✅ Twitter/X (x.com)
+   ✅ Gmail
+   ✅ Cualquier otro sitio
+
+4. Escribe en cualquier campo de texto
+   - El texto se transformará automáticamente
+   - Ejemplo: "hola" → "H O L A"
+
+
+📌 CONFIGURACIÓN
+───────────────────────────────────────────
+
+En el popup de la extensión puedes configurar:
+
+✓ Mayúsculas / Minúsculas
+✓ Cantidad de espacios (1-5)
+✓ Activar/Desactivar espacios entre letras
+
+
+🎯 EJEMPLO DE USO
+───────────────────────────────────────────
+
+Si escribes:     "pilotas"
+Se escribirá:    "P I L O T A S"
+
+Si escribes:     "hola mundo"
+Se escribirá:    "H O L A   M U N D O"
+
+
+⚠️ NOTAS IMPORTANTES
+───────────────────────────────────────────
+
+- La extensión NO funciona en campos de contraseña
+- La extensión NO funciona en campos numéricos o emails
+- Si no funciona en un sitio, intenta recargar la página (F5)
+- Puedes desactivarla en cualquier momento desde el popup
+
+
+🐛 PROBLEMAS COMUNES
+───────────────────────────────────────────
+
+❌ Error: "Could not load icon"
+   → Solución: Asegúrate de descargar los 3 iconos PNG
+              y colocarlos en la carpeta correcta
+
+❌ La extensión no transforma el texto
+   → Verifica que esté ACTIVADA (badge "ON")
+   → Recarga la página web (F5)
+   → Abre la consola (F12) y busca "Transformador de Texto"
+
+❌ El cursor se mueve raro al escribir
+   → Esto es normal con los espacios, el cursor siempre
+     se posiciona al final del texto transformado
+
+
+✨ ¡DISFRUTA ESCRIBIENDO CON ESTILO P I L O T A S! ✨
