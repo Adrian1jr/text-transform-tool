@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transformador de Texto</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Transformador de Texto</h1>
+      <p class="subtitle">Personaliza tu texto con el estilo P I L O T A S</p>
+
+      <div class="main-content">
+        <div class="left-column">
+          <div class="input-section">
+            <label for="inputText">Escribe tu texto:</label>
+            <textarea id="inputText" placeholder="Ejemplo: pilotas" rows="4"></textarea>
+          </div>
+
+          <div class="options-section">
+            <h3>Opciones de Transformación:</h3>
+
+            <div class="option-group">
+              <label class="option">
+                <input type="checkbox" id="uppercase" checked />
+                <span>Mayúsculas</span>
+              </label>
+
+              <label class="option">
+                <input type="checkbox" id="lowercase" />
+                <span>Minúsculas</span>
+              </label>
+
+              <label class="option">
+                <input type="checkbox" id="addSpaces" checked />
+                <span>Agregar espacios entre letras</span>
+              </label>
+            </div>
+
+            <div class="spacing-control">
+              <label for="spacingAmount">Cantidad de espacios:</label>
+              <div class="slider-container">
+                <input type="range" id="spacingAmount" min="1" max="5" value="1" />
+                <span id="spacingValue">1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="right-column">
+          <div class="output-section">
+            <label for="outputText">Resultado:</label>
+            <div id="outputText" class="output-box"></div>
+            <button id="copyBtn" class="copy-btn">📋 Copiar al Portapapeles</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
